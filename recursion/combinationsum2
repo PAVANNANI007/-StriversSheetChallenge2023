@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution 
+{
+    public static void func(int ind, int n, int target, ArrayList<Integer>arr, ArrayList<Integer>ds, ArrayList<ArrayList<Integer>>ans ){
+        if(target == 0){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i = ind; i < n; i++){
+            if(i>ind && arr.get(i) == arr.get(i-1))
+            continue;
+            if(arr.get(i)>target)
+            break;
+            ds.add(arr.get(i));
+            func(i+1, n, target-arr.get(i), arr, ds, ans);
+            ds.remove(ds.size()-1);
+        }
+    }
+    public static ArrayList<ArrayList<Integer>> combinationSum2(ArrayList<Integer> arr, int n, int target)
+    {
+        //    Write your code here.
+        Collections.sort(arr);
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        func(0, n,target, arr, new ArrayList<Integer>(), ans);
+        return ans;
+        
+    }
+}
