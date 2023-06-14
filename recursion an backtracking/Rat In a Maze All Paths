@@ -1,0 +1,52 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+    static void findPath(int a, int b, ArrayList<ArrayList<Integer>> ans, int[][] maze) {
+        if (a == maze.length - 1 && b == maze.length - 1) {
+            ArrayList<Integer> ds = new ArrayList<Integer>();
+            for (int i = 0; i < maze.length; i++)
+                for (int j = 0; j < maze.length; j++) {
+                    if ((i == 0 && j == 0) || maze[i][j] == -1)
+                        ds.add(1);
+                    else
+                        ds.add(0);
+                }
+            ans.add(ds);
+            return;
+        }
+        int t;
+        if (b - 1 >= 0 && maze[a][b - 1] == 1) {
+            t = maze[a][b - 1];
+            maze[a][b - 1] = -1;
+            findPath(a, b - 1, ans, maze);
+            maze[a][b - 1] = t;
+        }
+        if (b + 1 < maze.length && maze[a][b + 1] == 1) {
+            t = maze[a][b + 1];
+            maze[a][b + 1] = -1;
+            findPath(a, b + 1, ans, maze);
+            maze[a][b + 1] = t;
+        }
+        if (a - 1 >= 0 && maze[a - 1][b] == 1) {
+            t = maze[a - 1][b];
+            maze[a - 1][b] = -1;
+            findPath(a - 1, b, ans, maze);
+            maze[a - 1][b] = t;
+        }
+        if (a + 1 < maze.length && maze[a + 1][b] == 1) {
+            t = maze[a + 1][b];
+            maze[a + 1][b] = -1;
+            findPath(a + 1, b, ans, maze);
+            maze[a + 1][b] = t;
+        }
+    }
+
+    public static ArrayList<ArrayList<Integer>> ratInAMaze(int[][] maze, int n) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> ds = new ArrayList<Integer>();
+        maze[0][0] = -1;
+        findPath(0, 0, ans, maze);
+        return ans;
+    }
+}
