@@ -1,0 +1,52 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+	
+	public static int[] nextGreater(int[] arr, int n) {	
+		//Write Your code here
+		int[] nge=new int[n];                // optimised 
+
+ 
+
+        Stack<Integer> st=new Stack<>();
+
+ 
+
+        st.push(arr[arr.length-1]);
+
+ 
+
+        nge[arr.length-1]=-1;
+
+ 
+
+        for(int i=arr.length-2;i>=0;i--){
+
+            while(!st.isEmpty() && arr[i]>=st.peek()){
+
+                st.pop();
+
+            }
+
+            if(st.isEmpty()){
+
+                nge[i]=-1;
+
+            }
+
+            else{
+
+                nge[i]=st.peek();
+
+            }
+
+            st.push(arr[i]);
+
+        }
+
+        return nge;
+		
+	}
+
+}
