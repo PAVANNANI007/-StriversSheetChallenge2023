@@ -1,0 +1,197 @@
+import java.util.ArrayList;
+
+ 
+
+public class Solution {
+
+ 
+
+    static boolean isLeaf(TreeNode root)
+
+    {
+
+        if(root.left==null && root.right==null)
+
+        {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+ 
+
+    static void addleftboundary(TreeNode root,ArrayList<Integer> ans)
+
+    {
+
+        TreeNode cur = root.left;
+
+ 
+
+        while(cur!=null)
+
+        {
+
+            if(!isLeaf(cur))
+
+            {
+
+                ans.add(cur.data);
+
+            }
+
+            if(cur.left!=null)
+
+            {
+
+                cur=cur.left;
+
+            }
+
+            else{
+
+                cur=cur.right;
+
+            }
+
+        }
+
+ 
+
+    }
+
+ 
+
+    static void addleaves(TreeNode root,ArrayList<Integer> ans)
+
+    {
+
+        
+
+        if(isLeaf(root))
+
+        {
+
+            ans.add(root.data);
+
+            return;
+
+        }
+
+        if(root.left!=null)
+
+        {
+
+            addleaves(root.left,ans);
+
+        }
+
+        if(root.right!=null)
+
+        {
+
+            addleaves(root.right,ans);
+
+        }
+
+    }
+
+ 
+
+    static void addrightboundary(TreeNode root,ArrayList<Integer> ans)
+
+    {
+
+        ArrayList<Integer> arr = new ArrayList<>();
+
+        TreeNode cur = root.right;
+
+ 
+
+        while(cur!=null)
+
+        {
+
+            if(!isLeaf(cur))
+
+            {
+
+                arr.add(cur.data);
+
+            }
+
+            if(cur.right!=null)
+
+            {
+
+                cur=cur.right;
+
+            }
+
+            else{
+
+                cur=cur.left;
+
+            }
+
+        }
+
+ 
+
+        for(int i=arr.size()-1;i>=0;i--)
+
+        {
+
+            ans.add(arr.get(i));
+
+        }
+
+    }
+
+    public static  ArrayList<Integer> traverseBoundary(TreeNode root){
+
+        // Write your code here.
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        if(root==null)
+
+        {
+
+            return ans;
+
+        }
+
+        if(!isLeaf(root))
+
+        {
+
+            ans.add(root.data);
+
+        }
+
+        addleftboundary(root,ans);
+
+        addleaves(root,ans);
+
+        addrightboundary(root,ans);
+
+        return ans;
+
+        
+
+        /*for(int i=0;i<ans.size();i++)
+
+        {
+
+            System.out.print(ans.get(i)+" ");
+
+        }*/
+
+    }
+
+}
