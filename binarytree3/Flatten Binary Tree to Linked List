@@ -1,0 +1,35 @@
+public class Solution {    
+
+    public static TreeNode<Integer> flattenBinaryTree(TreeNode<Integer> root) {
+
+        // Write your code here.
+
+        flatten(root);
+
+        prev = null;
+
+        return root;
+
+    } 
+
+    static TreeNode<Integer> prev = null;
+
+    static void flatten(TreeNode<Integer> root) {
+
+        if (root==null)   
+
+            return;  
+
+       flatten(root.right);  
+
+       flatten(root.left);  
+
+       root.right = prev;  
+
+       root.left = null;  
+
+       prev = root;
+
+    }
+
+ }
