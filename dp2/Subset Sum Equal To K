@@ -1,0 +1,67 @@
+public class Solution {
+
+    public static boolean subsetSumToK(int n, int k, int arr[]){
+
+        // Write your code here.
+
+        int[][] dp = new int[n][k+1];
+
+        for(int[] val:dp){
+
+            Arrays.fill(val,-1);
+
+        }
+
+        return solve(n-1,k,arr,dp);
+
+    }
+
+    public static boolean solve(int idx,int k,int[] a,int[][] dp)
+
+    {
+
+        if(k==0)return true;
+
+        if(idx==0)return (a[0]==k);
+
+        if(dp[idx][k]!=-1){
+
+            if(dp[idx][k]==0){
+
+                return false;
+
+            }
+
+            else {
+
+                return true;
+
+            }
+
+        }
+
+        boolean not=solve(idx-1,k,a,dp);
+
+ 
+
+        boolean take=false;
+
+ 
+
+        if(a[idx]<=k){
+
+            take=solve(idx-1,k-a[idx],a,dp);
+
+        }
+
+        if(not||take)
+
+        dp[idx][k]=1;
+
+        else dp[idx][k]=0;
+
+        return (take || not);
+
+    }
+
+}
