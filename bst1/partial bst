@@ -1,0 +1,36 @@
+#include <bits/stdc++.h> 
+bool isSorted(vector<int> vec)
+{
+    int prev = 0, curr = 1;
+    while(curr != vec.size())
+    {
+        if(vec[curr] < vec[prev])
+        {
+            return false;
+        }
+        curr++, prev++;
+    }
+    return true;
+}
+void LNR(BinaryTreeNode<int> *root, vector <int> &vec)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    LNR(root->left, vec);
+    vec.push_back(root->data);
+    LNR(root->right, vec);
+
+
+}
+bool validateBST(BinaryTreeNode<int> *root)
+{
+    vector <int> vec;
+    LNR(root, vec);
+    if(vec.size() == 0)
+    {
+        return true;
+    }
+    return isSorted(vec);
+}
