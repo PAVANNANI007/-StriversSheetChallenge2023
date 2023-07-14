@@ -1,0 +1,86 @@
+#include <bits/stdc++.h> 
+
+/************************************************************
+
+ 
+
+    Following is the TreeNode class structure
+
+ 
+
+    template <typename T>
+
+    class TreeNode {
+
+       public:
+
+        T data;
+
+        TreeNode<T> *left;
+
+        TreeNode<T> *right;
+
+ 
+
+        TreeNode(T data) {
+
+            this->data = data;
+
+            left = NULL;
+
+            right = NULL;
+
+        }
+
+    };
+
+ 
+
+************************************************************/
+
+map<int,int>mp;
+
+TreeNode<int>* help(vector<int>&pre, int pre_start, int pre_end, vector<int>&in, int in_start, int in_end){
+
+    if(pre_start > pre_end || in_start > in_end){
+
+        return NULL;
+
+    }
+
+    TreeNode<int>* root =new TreeNode<int>(pre[pre_start]);
+
+    
+
+    int inroot=mp[pre[pre_start]];
+
+    int rem=inroot-in_start;
+
+    
+
+    root->left =help(pre,pre_start+1, pre_start+rem, in, in_start, inroot-1);
+
+    root->right =help(pre, pre_start+rem+1, pre_end, in , inroot+1, in_end);
+
+    
+
+    return root;
+
+}
+
+TreeNode<int> *buildBinaryTree(vector<int> &in, vector<int> &pre){
+
+    //    Write your code here
+
+    for(int i=0; i<in.size();i++){
+
+        mp[in[i]]=i;
+
+    }
+
+    TreeNode<int>* root =help(pre, 0, pre.size()-1,in , 0, in.size()-1);
+
+    return root;
+
+}
+
