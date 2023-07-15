@@ -1,0 +1,29 @@
+Node *addTwoNumbers(Node *num1, Node *num2)
+{
+    int carry = 0;
+    if(num1 == NULL) {
+        return num2;
+    } else if(num2 == NULL) {
+        return num1;
+    }
+    Node* head = new Node(-1);
+    Node* duplicate = head;
+    while(num1 ||num2 || carry != 0) {
+        int sum = 0;
+        if(num1 != NULL) {
+            sum += num1 -> data;
+            num1 = num1 -> next;
+        } 
+        if(num2 != NULL) {
+            sum += num2 -> data;
+            num2 = num2 -> next;
+        }
+        // adding previous carry here;
+        sum += carry;
+        carry = sum / 10;
+        Node * newElement = new Node (sum % 10);
+        duplicate -> next = newElement;
+        duplicate = duplicate -> next;
+    }
+    return head -> next;
+}
